@@ -187,6 +187,7 @@ function select(hash){
   location.hash = hash;
   map.flyTo([s.lat,s.lng],17,{duration:.8});
   showDetail(hash);
+  document.getElementById('panel').classList.add('open');
 }
 
 function showDetail(hash){
@@ -226,12 +227,16 @@ function backToList(){
    .bindPopup(`<b>🚉 ${s.name}</b>`);
 });
 
-// Spot markers
+// Spot markers — click opens detail panel + updates hash
 Object.entries(DATA).forEach(([hash,s])=>{
   const size = hash==='tournez' ? 34 : 28;
   const marker = L.marker([s.lat,s.lng],{icon:icon(s.color,size)}).addTo(map);
-  marker.bindPopup(`<b>${s.name}</b><div style="font-size:.7rem;color:#aaa;margin:4px 0">${s.addr}</div><div style="font-size:.75rem;color:#ff9800">🚶 ${s.walk}</div><div style="font-size:.75rem;color:#ccc;margin-top:4px">${s.desc}</div>`);
-  marker.on('click',()=>showDetail(hash));
+  marker.on('click',()=>{
+    location.hash = hash;
+    map.flyTo([s.lat,s.lng],17,{duration:.8});
+    showDetail(hash);
+    document.getElementById('panel').classList.add('open');
+  });
 });
 
 // Hash routing
