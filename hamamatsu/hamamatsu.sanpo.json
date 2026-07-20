@@ -1,0 +1,133 @@
+{
+  "name": "Tournez La Page",
+  "name_ja": "トゥルネラパージュ",
+  "address": "静岡県浜松市中央区板屋町102-14",
+  "lat": 34.7072,
+  "lng": 137.7335,
+  "rating": 4.6,
+  "type": "コーヒーショップ・喫茶店",
+  "phone": "053-455-7100",
+  "links": ["ウェブサイト", "道順"],
+  "highlight": "ドイツ製 Avantgarde Acoustic の巨大ホーンスピーカー（約1,000万円クラス）。ジャズ中心のリスニングスペース。",
+  "recommended_level": "一番おすすめ（一度は行く価値あり）",
+  "walk_from_station": "第一通り駅 徒歩1分",
+  "walk_minutes": 1,
+  "others": [
+    {
+      "name": "JAZZ SPOT analog.",
+      "address": "静岡県浜松市中央区田町325-1 有楽街北口 渥美薬局ビル2F",
+      "lat": 34.7077,
+      "lng": 137.7316,
+      "highlight": "JBLスピーカーとMcIntoshアンプでレコードを楽しめるジャズバー。",
+      "walk_from_station": "第一通り駅 徒歩4分",
+      "walk_minutes": 4
+    },
+    {
+      "name": "Jazz In B♭",
+      "address": "静岡県浜松市中央区半田山5-16-17",
+      "lat": 34.7250,
+      "lng": 137.7200,
+      "highlight": "老舗のジャズ喫茶。ライブもあり、ジャズファンには定番。",
+      "walk_from_station": "浜松駅 徒歩20分（自転車推奨）",
+      "walk_minutes": 20
+    },
+    {
+      "name": "Hermit Dolphin（ハァーミットドルフィン）",
+      "address": "静岡県浜松市中央区田町326-25 KJスクエア2F",
+      "lat": 34.7077,
+      "lng": 137.7316,
+      "highlight": "JBL4344と自作真空管アンプの暖かく奥行きのあるサウンド。不定期ライブも開催。",
+      "walk_from_station": "第一通り駅 徒歩2分",
+      "walk_minutes": 2
+    }
+  ],
+  "live_art_spots": [
+    {
+      "name": "たけし文化センター連尺町",
+      "address": "静岡県浜松市中央区連尺町314-30",
+      "lat": 34.7105,
+      "lng": 137.7340,
+      "highlight": "アートと福祉が交わる拠点。音楽スタジオ、図書館カフェを併設。",
+      "walk_from_station": "浜松駅 徒歩8分",
+      "walk_minutes": 8
+    },
+    {
+      "name": "overdub",
+      "address": "静岡県浜松市中央区天神町",
+      "lat": 34.7120,
+      "lng": 137.7300,
+      "highlight": "天神町の音楽バー・ライブスペース。DJイベントやライブ会場。",
+      "walk_from_station": "浜松駅 徒歩10分",
+      "walk_minutes": 10
+    },
+    {
+      "name": "Planet Cafe",
+      "address": "静岡県浜松市中央区元城町223-1 アルスパーキングB1F",
+      "lat": 34.7110,
+      "lng": 137.7290,
+      "highlight": "1995年創業の浜松を代表するクラブ／ライブスペース。",
+      "walk_from_station": "第一通り駅 徒歩7分",
+      "walk_minutes": 7
+    },
+    {
+      "name": "手打ち蕎麦 naru",
+      "address": "静岡県浜松市中央区板屋町102-12 2F",
+      "lat": 34.7071,
+      "lng": 137.7335,
+      "highlight": "自家製粉の手打ち蕎麦店。店内でライブやイベントも開催。",
+      "walk_from_station": "第一通り駅 徒歩1分",
+      "walk_minutes": 1
+    }
+  ],
+  "sauna": [
+    {
+      "name": "かじまちの湯 SPA SOLANI",
+      "address": "静岡県浜松市中央区鍛冶町100-1 ザザシティ浜松中央館3F",
+      "lat": 34.7065,
+      "lng": 137.7320,
+      "highlight": "浜松駅から443mの駅前サウナ。100℃高温サウナ、水風呂16〜17℃。カプセルホテル・ネットカフェ併設。",
+      "walk_from_station": "浜松駅 徒歩5分（新浜松駅 徒歩5分）",
+      "walk_minutes": 5,
+      "sauna_temp": "90〜100℃",
+      "water_temp": "16〜17℃",
+      "phone": "053-451-0500"
+    },
+    {
+      "name": "湯風景しおり",
+      "address": "静岡県浜松市中区高林1-13-13",
+      "lat": 34.7140,
+      "lng": 137.7420,
+      "highlight": "百坪超の野天風呂が名物。漢方薬草サウナ、ロウリュあり。図書コーナー完備。",
+      "walk_from_station": "浜松駅 バス15分 + 徒歩5分",
+      "walk_minutes": 25,
+      "sauna_temp": "高温サウナ・塩サウナ・漢方薬草サウナ",
+      "phone": "053-478-2626"
+    },
+    {
+      "name": "和合の湯",
+      "address": "静岡県浜松市中区和合町1146",
+      "lat": 34.7050,
+      "lng": 137.7200,
+      "highlight": "地域密着スーパー銭湯。約90℃ドライサウナ、キリン型スライドで子供にも人気。",
+      "walk_from_station": "浜松駅 バス15分",
+      "walk_minutes": 25,
+      "sauna_temp": "約90℃",
+      "phone": "053-482-8888"
+    }
+  ],
+  "suggested_route": "たけし文化センター → overdub → Planet Cafe → 手打ち蕎麦 naru",
+  "walk_time_map": {
+    "description": "浜松駅/第一通り駅からの徒歩時間（分）",
+    "rings": [
+      {"minutes": 1, "color": "red", "spots": ["Tournez La Page", "手打ち蕎麦 naru"]},
+      {"minutes": 2, "color": "red", "spots": ["Hermit Dolphin"]},
+      {"minutes": 4, "color": "orange", "spots": ["JAZZ SPOT analog."]},
+      {"minutes": 5, "color": "orange", "spots": ["かじまちの湯 SPA SOLANI"]},
+      {"minutes": 7, "color": "yellow", "spots": ["Planet Cafe"]},
+      {"minutes": 8, "color": "yellow", "spots": ["たけし文化センター連尺町"]},
+      {"minutes": 10, "color": "green", "spots": ["overdub"]},
+      {"minutes": 20, "color": "blue", "spots": ["Jazz In B♭"]}
+    ]
+  },
+  "tags": ["オーディオ", "ジャズ", "ホーンスピーカー", "Avantgarde Acoustic", "ハイエンド", "静岡", "浜松", "ライブ", "アート", "サウナ"]
+}

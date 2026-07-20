@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浜松 音楽&グルメマップ</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#1a1a2e;color:#e0e0e0}
+#header{background:linear-gradient(135deg,#16213e,#0f3460);padding:16px 20px;display:flex;align-items:center;gap:16px;border-bottom:2px solid #e94560}
+#header h1{font-size:1.3rem;color:#fff}
+#header span{font-size:.75rem;color:#aaa}
+#map{height:calc(100vh - 140px);width:100%}
+#legend{position:fixed;bottom:0;left:0;right:0;background:#16213e;padding:10px 16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;border-top:1px solid #333;font-size:.75rem;z-index:1000}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:12px;height:12px;border-radius:50%;border:2px solid #fff;flex-shrink:0}
+#panel{position:fixed;top:60px;right:10px;width:280px;max-height:calc(100vh - 170px);background:#16213eee;border-radius:8px;overflow-y:auto;z-index:999;font-size:.78rem;padding:12px;display:none;border:1px solid #333}
+#panel.open{display:block}
+#panel h3{font-size:.9rem;color:#e94560;margin-bottom:8px;border-bottom:1px solid #333;padding-bottom:4px}
+#panel .spot{margin-bottom:10px;padding:8px;background:#1a1a2e;border-radius:6px;cursor:pointer;border-left:3px solid #e94560}
+#panel .spot:hover{background:#0f3460}
+#panel .spot .name{font-weight:bold;color:#fff}
+#panel .spot .walk{font-size:.7rem;color:#aaa;margin-top:2px}
+#panel .spot .highlight{font-size:.7rem;color:#ccc;margin-top:3px}
+.toggle-btn{position:fixed;top:60px;right:10px;z-index:1001;background:#e94560;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:.8rem}
+@media(max-width:600px){#panel{width:calc(100% - 20px);right:10px;top:auto;bottom:150px;max-height:40vh}}
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div>
+    <h1>浜松 音楽&グルメマップ</h1>
+    <span>Tournez La Page 周辺のオーディオ・ジャズ・ライブ・サウナ spots</span>
+  </div>
+</div>
+
+<button class="toggle-btn" onclick="document.getElementById('panel').classList.toggle('open')">リスト</button>
+
+<div id="panel">
+  <h3>🎧 オーディオ・ジャズ</h3>
+  <div class="spot" onclick="flyTo(34.7072,137.7335)"><div class="name">★ Tournez La Page</div><div class="walk">第一通り駅 1分</div><div class="highlight">Avantgarde Acoustic ホーンSP 1000万円クラス</div></div>
+  <div class="spot" onclick="flyTo(34.7077,137.7316)"><div class="name">JAZZ SPOT analog.</div><div class="walk">第一通り駅 4分</div><div class="highlight">JBL+McIntosh レコードジャズバー</div></div>
+  <div class="spot" onclick="flyTo(34.7250,137.7200)"><div class="name">Jazz In B♭</div><div class="walk">浜松駅 20分（自転車推奨）</div><div class="highlight">老舗ジャズ喫茶・ライブハウス</div></div>
+  <div class="spot" onclick="flyTo(34.7077,137.7316)"><div class="name">Hermit Dolphin</div><div class="walk">第一通り駅 2分</div><div class="highlight">JBL4344+真空管アンプ 不定期ライブ</div></div>
+  <h3>🎵 ライブ・アート</h3>
+  <div class="spot" onclick="flyTo(34.7105,137.7340)"><div class="name">たけし文化センター</div><div class="walk">浜松駅 8分</div><div class="highlight">アート＆福祉の拠点 音楽スタジオ併設</div></div>
+  <div class="spot" onclick="flyTo(34.7120,137.7300)"><div class="name">overdub</div><div class="walk">浜松駅 10分</div><div class="highlight">天神町 音楽バー・ライブスペース</div></div>
+  <div class="spot" onclick="flyTo(34.7110,137.7290)"><div class="name">Planet Cafe</div><div class="walk">第一通り駅 7分</div><div class="highlight">1995年創業 浜松のクラブ</div></div>
+  <div class="spot" onclick="flyTo(34.7071,137.7335)"><div class="name">手打ち蕎麦 naru</div><div class="walk">第一通り駅 1分</div><div class="highlight">自家製粉 手打ち蕎麦・ライブ開催</div></div>
+  <h3>♨️ サウナ</h3>
+  <div class="spot" onclick="flyTo(34.7065,137.7320)"><div class="name">かじまちの湯 SPA SOLANI</div><div class="walk">浜松駅 5分</div><div class="highlight">駅前サウナ 100℃ 水風呂16℃ カプセル併設</div></div>
+  <div class="spot" onclick="flyTo(34.7140,137.7420)"><div class="name">湯風景しおり</div><div class="walk">浜松駅 バス15分+徒歩5分</div><div class="highlight">百坪野天風呂 漢方薬草サウナ</div></div>
+  <div class="spot" onclick="flyTo(34.7050,137.7200)"><div class="name">和合の湯</div><div class="walk">浜松駅 バス15分</div><div class="highlight">ドライサウナ90℃ スーパー銭湯</div></div>
+</div>
+
+<div id="map"></div>
+
+<div id="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#e94560"></div>おすすめ</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ff9800"></div>ジャズバー</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4caf50"></div>ライブ・アート</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#9c27b0"></div>蕎麦</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#00bcd4"></div>サウナ</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#607d8b"></div>駅</div>
+</div>
+
+<script>
+const map = L.map('map',{zoomControl:false}).setView([34.7090,137.7315],15);
+L.control.zoom({position:'bottomleft'}).addTo(map);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
+  attribution:'© OpenStreetMap © CARTO',
+  maxZoom:19
+}).addTo(map);
+
+function icon(color,size=28){
+  return L.divIcon({
+    className:'',
+    html:`<div style="width:${size}px;height:${size}px;background:${color};border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.5)"></div>`,
+    iconSize:[size,size],
+    iconAnchor:[size/2,size/2],
+    popupAnchor:[0,-size/2-4]
+  });
+}
+
+function flyTo(lat,lng){map.flyTo([lat,lng],17,{duration:.8})}
+
+function popupHtml(name,addr,walk,highlight,temp){
+  let t=temp?`<div style="margin-top:4px;font-size:.7rem;color:#00bcd4">${temp}</div>`:'';
+  return `<div style="min-width:180px"><b style="font-size:.9rem">${name}</b><div style="font-size:.7rem;color:#aaa;margin:4px 0">${addr}</div><div style="font-size:.75rem;color:#ff9800">🚶 ${walk}</div><div style="font-size:.75rem;color:#ccc;margin-top:4px">${highlight}</div>${t}</div>`;
+}
+
+// Stations
+[
+  {name:'浜松駅',lat:34.7035,lng:137.7295},
+  {name:'第一通り駅',lat:34.7068,lng:137.7337},
+  {name:'新浜松駅',lat:34.7040,lng:137.7310}
+].forEach(s=>{
+  L.marker([s.lat,s.lng],{icon:icon('#607d8b',22)}).addTo(map)
+   .bindPopup(`<b>🚉 ${s.name}</b>`);
+});
+
+// Main spot
+L.marker([34.7072,137.7335],{icon:icon('#e94560',34)}).addTo(map)
+ .bindPopup(popupHtml('★ Tournez La Page（トゥルネラパージュ）','板屋町102-14','第一通り駅 徒歩1分','Avantgarde Acoustic ホーンSP 1000万円クラス'));
+
+// Others - Jazz bars
+[
+  {name:'JAZZ SPOT analog.',lat:34.7077,lng:137.7316,addr:'田町325-1',walk:'第一通り駅 4分',hl:'JBL+McIntosh レコードジャズバー'},
+  {name:'Jazz In B♭',lat:34.7250,lng:137.7200,addr:'半田山5-16-17',walk:'浜松駅 20分',hl:'老舗ジャズ喫茶・ライブハウス'},
+  {name:'Hermit Dolphin',lat:34.7077,lng:137.7316,addr:'田町326-25',walk:'第一通り駅 2分',hl:'JBL4344+真空管アンプ 不定期ライブ'}
+].forEach(s=>{
+  L.marker([s.lat,s.lng],{icon:icon('#ff9800')}).addTo(map)
+   .bindPopup(popupHtml(s.name,s.addr,s.walk,s.hl));
+});
+
+// Live & Art
+[
+  {name:'たけし文化センター連尺町',lat:34.7105,lng:137.7340,addr:'連尺町314-30',walk:'浜松駅 8分',hl:'アート＆福祉の拠点 音楽スタジオ併設'},
+  {name:'overdub',lat:34.7120,lng:137.7300,addr:'天神町',walk:'浜松駅 10分',hl:'天神町の音楽バー・ライブスペース'},
+  {name:'Planet Cafe',lat:34.7110,lng:137.7290,addr:'元城町223-1',walk:'第一通り駅 7分',hl:'1995年創業 浜松を代表するクラブ'}
+].forEach(s=>{
+  L.marker([s.lat,s.lng],{icon:icon('#4caf50')}).addTo(map)
+   .bindPopup(popupHtml(s.name,s.addr,s.walk,s.hl));
+});
+
+// Soba
+L.marker([34.7071,137.7335],{icon:icon('#9c27b0')}).addTo(map)
+ .bindPopup(popupHtml('手打ち蕎麦 naru','板屋町102-12 2F','第一通り駅 1分','自家製粉の手打ち蕎麦 ライブ開催'));
+
+// Sauna
+[
+  {name:'かじまちの湯 SPA SOLANI',lat:34.7065,lng:137.7320,addr:'鍛冶町100-1 ザザシティ浜松中央館3F',walk:'浜松駅 5分',hl:'駅前サウナ 100℃ 水風呂16℃',temp:'サウナ100℃ / 水風呂16℃'},
+  {name:'湯風景しおり',lat:34.7140,lng:137.7420,addr:'高林1-13-13',walk:'浜松駅 バス15分+徒歩5分',hl:'百坪野天風呂 漢方薬草サウナ',temp:'高温サウナ・塩サウナ・漢方薬草サウナ'},
+  {name:'和合の湯',lat:34.7050,lng:137.7200,addr:'和合町1146',walk:'浜松駅 バス15分',hl:'ドライサウナ90℃ スーパー銭湯',temp:'サウナ約90℃'}
+].forEach(s=>{
+  L.marker([s.lat,s.lng],{icon:icon('#00bcd4')}).addTo(map)
+   .bindPopup(popupHtml(s.name,s.addr,s.walk,s.hl,s.temp));
+});
+
+// Walking time circles from 浜松駅
+const center = [34.7035,137.7295];
+[
+  {m:1,r:120,c:'#e9456044'},
+  {m:5,r:350,c:'#ff980033'},
+  {m:10,r:700,c:'#4caf5022'},
+  {m:20,r:1400,c:'#2196f318'}
+].forEach(ring=>{
+  L.circle(center,{radius:ring.r,color:ring.c,fillColor:ring.c,fillOpacity:.3,weight:1,dashArray:'5,5'}).addTo(map)
+   .bindTooltip(`${ring.m}分圏（徒歩）`);
+});
+
+// Suggested route line
+L.polyline([
+  [34.7105,137.7340],
+  [34.7120,137.7300],
+  [34.7110,137.7290],
+  [34.7071,137.7335]
+],{color:'#e94560',weight:2,dashArray:'8,6',opacity:.6}).addTo(map)
+ .bindTooltip('おすすめルート',{sticky:true});
+</script>
+</body>
+</html>

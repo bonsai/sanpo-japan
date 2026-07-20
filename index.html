@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>散歩ジャパン - sanpo-japan</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#0f0f23;color:#e0e0e0;min-height:100vh}
+.hero{background:linear-gradient(135deg,#16213e,#0f3460,#1a1a2e);padding:60px 20px;text-align:center;border-bottom:3px solid #e94560}
+.hero h1{font-size:2.2rem;color:#fff;margin-bottom:8px}
+.hero p{color:#aaa;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;padding:30px 20px;max-width:1000px;margin:0 auto}
+.card{background:#16213e;border-radius:10px;overflow:hidden;border:1px solid #333;transition:transform .2s,border-color .2s;cursor:pointer;text-decoration:none;color:inherit}
+.card:hover{transform:translateY(-4px);border-color:#e94560}
+.card-img{height:140px;background:#0f3460;display:flex;align-items:center;justify-content:center;font-size:3rem}
+.card-body{padding:16px}
+.card-body h2{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.card-body .count{font-size:.75rem;color:#e94560;margin-bottom:6px}
+.card-body p{font-size:.8rem;color:#aaa;line-height:1.5}
+.empty{opacity:.4;pointer-events:none}
+.empty .card-img{background:#1a1a2e}
+.empty .card-body h2{color:#666}
+footer{text-align:center;padding:30px;color:#555;font-size:.7rem;border-top:1px solid #222}
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>散歩ジャパン</h1>
+  <p>各地のオーディオ・ライブ・グルメ・サウナ spots in Japan</p>
+</div>
+<div class="grid">
+  <a class="card" href="hamamatsu/">
+    <div class="card-img">🎵</div>
+    <div class="card-body">
+      <h2>浜松</h2>
+      <div class="count">7 spots + サウナ 3件</div>
+      <p>Tournez La Page の Avantgarde Acoustic 1000万円ホーンSPから始まる、ジャズ・ライブ・サウナの散歩ルート。</p>
+    </div>
+  </a>
+  <div class="card empty">
+    <div class="card-img">🏙️</div>
+    <div class="card-body">
+      <h2>東京（準備中）</h2>
+      <div class="count">coming soon</div>
+      <p>下北沢、中目黒、代官山…オーディオスポット予定。</p>
+    </div>
+  </div>
+  <div class="card empty">
+    <div class="card-img">🏔️</div>
+    <div class="card-body">
+      <h2>大阪（準備中）</h2>
+      <div class="count">coming soon</div>
+      <p>なんば、美国…ジャズバー＆サウナ予定。</p>
+    </div>
+  </div>
+</div>
+<footer>sanpo-japan © 2026</footer>
+</body>
+</html>
