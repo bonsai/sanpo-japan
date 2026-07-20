@@ -45,10 +45,10 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#1a1a2e;color
 .fab{position:fixed;bottom:16px;right:16px;z-index:1002;background:#e94560;color:#fff;border:none;width:52px;height:52px;border-radius:50%;cursor:pointer;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,.5);-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center}
 .fab:active{transform:scale(.95)}
 
-/* Legend — floating chips above FAB */
-#legend{position:fixed;bottom:80px;left:10px;z-index:1000;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 80px)}
-.legend-chip{background:#16213ecc;border-radius:20px;padding:3px 8px;font-size:.6rem;display:flex;align-items:center;gap:4px;backdrop-filter:blur(4px);border:1px solid #333}
-.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+/* Legend — top-right, below header */
+#legend{position:fixed;top:50px;right:8px;z-index:1000;display:flex;flex-direction:column;gap:3px;align-items:flex-end}
+.legend-chip{background:#16213ecc;border-radius:12px;padding:2px 8px;font-size:.55rem;display:flex;align-items:center;gap:3px;backdrop-filter:blur(4px);border:1px solid #333}
+.legend-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 
 /* Desktop overrides */
 @media(min-width:768px){
@@ -58,8 +58,8 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#1a1a2e;color
   #panel .handle{display:none}
   #detail{padding:16px}
   .fab{bottom:20px;right:20px}
-  #legend{bottom:auto;top:70px;left:10px}
-  .legend-chip{font-size:.65rem;padding:4px 10px}
+  #legend{top:60px;right:10px}
+  .legend-chip{font-size:.6rem;padding:3px 10px;flex-direction:row}
 }
 </style>
 </head>
@@ -68,7 +68,7 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#1a1a2e;color
 <div id="header">
   <div>
     <h1>浜松 音楽&グルメマップ</h1>
-    <span>Tournez La Page 周周辺のオーディオ・ジャズ・ライブ・サウナ spots</span>
+    <span>Tournez La Page 周辺のオーディオ・ジャズ・ライブ・サウナ spots</span>
   </div>
 </div>
 
@@ -305,14 +305,7 @@ const center = [34.7035,137.7295];
    .bindTooltip(`${ring.m}分圏（徒歩）`);
 });
 
-// Suggested route line
-L.polyline([
-  [34.7105,137.7340],
-  [34.7120,137.7300],
-  [34.7110,137.7290],
-  [34.7071,137.7335]
-],{color:'#e94560',weight:2,dashArray:'8,6',opacity:.6}).addTo(map)
- .bindTooltip('おすすめルート',{sticky:true});
+
 </script>
 </body>
 </html>
