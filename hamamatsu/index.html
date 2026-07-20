@@ -16,14 +16,26 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#1a1a2e;color
 #legend{position:fixed;bottom:0;left:0;right:0;background:#16213e;padding:10px 16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;border-top:1px solid #333;font-size:.75rem;z-index:1000}
 .legend-item{display:flex;align-items:center;gap:5px}
 .legend-dot{width:12px;height:12px;border-radius:50%;border:2px solid #fff;flex-shrink:0}
-#panel{position:fixed;top:60px;right:10px;width:280px;max-height:calc(100vh - 170px);background:#16213eee;border-radius:8px;overflow-y:auto;z-index:999;font-size:.78rem;padding:12px;display:none;border:1px solid #333}
+#panel{position:fixed;top:60px;right:10px;width:300px;max-height:calc(100vh - 170px);background:#16213eee;border-radius:8px;overflow-y:auto;z-index:999;font-size:.78rem;padding:0;display:none;border:1px solid #333}
 #panel.open{display:block}
-#panel h3{font-size:.9rem;color:#e94560;margin-bottom:8px;border-bottom:1px solid #333;padding-bottom:4px}
-#panel .spot{margin-bottom:10px;padding:8px;background:#1a1a2e;border-radius:6px;cursor:pointer;border-left:3px solid #e94560}
+#panel h3{font-size:.85rem;color:#e94560;margin:12px 12px 8px;border-bottom:1px solid #333;padding-bottom:4px}
+#panel .spot{margin:0 12px 8px;padding:8px;background:#1a1a2e;border-radius:6px;cursor:pointer;border-left:3px solid #e94560}
 #panel .spot:hover{background:#0f3460}
 #panel .spot .name{font-weight:bold;color:#fff}
 #panel .spot .walk{font-size:.7rem;color:#aaa;margin-top:2px}
-#panel .spot .highlight{font-size:.7rem;color:#ccc;margin-top:3px}
+#panel .spot .hl{font-size:.7rem;color:#ccc;margin-top:3px}
+/* detail view */
+#detail{display:none;padding:16px}
+#detail .back{font-size:.75rem;color:#e94560;cursor:pointer;margin-bottom:10px;display:inline-block}
+#detail .back:hover{text-decoration:underline}
+#detail .d-name{font-size:1.1rem;font-weight:bold;color:#fff;margin-bottom:4px}
+#detail .d-addr{font-size:.78rem;color:#aaa;margin-bottom:8px}
+#detail .d-tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;margin-right:4px;margin-bottom:4px}
+#detail .d-walk{font-size:.8rem;color:#ff9800;margin:8px 0}
+#detail .d-desc{font-size:.8rem;color:#ccc;line-height:1.5;margin:8px 0}
+#detail .d-hours{font-size:.75rem;color:#aaa;margin-top:6px}
+#detail .d-link{display:inline-block;margin-top:10px;font-size:.75rem;color:#e94560;text-decoration:none;border:1px solid #e94560;padding:4px 10px;border-radius:4px}
+#detail .d-link:hover{background:#e94560;color:#fff}
 .toggle-btn{position:fixed;top:60px;right:10px;z-index:1001;background:#e94560;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:.8rem}
 @media(max-width:600px){#panel{width:calc(100% - 20px);right:10px;top:auto;bottom:150px;max-height:40vh}}
 </style>
@@ -37,23 +49,26 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#1a1a2e;color
   </div>
 </div>
 
-<button class="toggle-btn" onclick="document.getElementById('panel').classList.toggle('open')">リスト</button>
+<button class="toggle-btn" onclick="document.getElementById('panel').classList.toggle('open');document.getElementById('detail').style.display='none';document.getElementById('list').style.display='block'">リスト</button>
 
 <div id="panel">
-  <h3>🎧 オーディオ・ジャズ</h3>
-  <div class="spot" onclick="flyTo(34.7072,137.7335,'tournez')"><div class="name">★ Tournez La Page</div><div class="walk">第一通り駅 1分</div><div class="highlight">Avantgarde Acoustic ホーンSP 1000万円クラス</div></div>
-  <div class="spot" onclick="flyTo(34.7077,137.7316,'analog')"><div class="name">JAZZ SPOT analog.</div><div class="walk">第一通り駅 4分</div><div class="highlight">JBL+McIntosh レコードジャズバー</div></div>
-  <div class="spot" onclick="flyTo(34.7250,137.7200,'jazz-bb')"><div class="name">Jazz In B♭</div><div class="walk">浜松駅 20分（自転車推奨）</div><div class="highlight">老舗ジャズ喫茶・ライブハウス</div></div>
-  <div class="spot" onclick="flyTo(34.7077,137.7316,'hermit')"><div class="name">Hermit Dolphin</div><div class="walk">第一通り駅 2分</div><div class="highlight">JBL4344+真空管アンプ 不定期ライブ</div></div>
-  <h3>🎵 ライブ・アート</h3>
-  <div class="spot" onclick="flyTo(34.7105,137.7340,'takeshi')"><div class="name">たけし文化センター</div><div class="walk">浜松駅 8分</div><div class="highlight">アート＆福祉の拠点 音楽スタジオ併設</div></div>
-  <div class="spot" onclick="flyTo(34.7120,137.7300,'overdub')"><div class="name">overdub</div><div class="walk">浜松駅 10分</div><div class="highlight">天神町 音楽バー・ライブスペース</div></div>
-  <div class="spot" onclick="flyTo(34.7110,137.7290,'planet')"><div class="name">Planet Cafe</div><div class="walk">第一通り駅 7分</div><div class="highlight">1995年創業 浜松のクラブ</div></div>
-  <div class="spot" onclick="flyTo(34.7071,137.7335,'naru')"><div class="name">手打ち蕎麦 naru</div><div class="walk">第一通り駅 1分</div><div class="highlight">自家製粉 手打ち蕎麦・ライブ開催</div></div>
-  <h3>♨️ サウナ</h3>
-  <div class="spot" onclick="flyTo(34.7065,137.7320,'solani')"><div class="name">かじまちの湯 SPA SOLANI</div><div class="walk">浜松駅 5分</div><div class="highlight">駅前サウナ 100℃ 水風呂16℃ カプセル併設</div></div>
-  <div class="spot" onclick="flyTo(34.7140,137.7420,'shiori')"><div class="name">湯風景しおり</div><div class="walk">浜松駅 バス15分+徒歩5分</div><div class="highlight">百坪野天風呂 漢方薬草サウナ</div></div>
-  <div class="spot" onclick="flyTo(34.7050,137.7200,'waigo')"><div class="name">和合の湯</div><div class="walk">浜松駅 バス15分</div><div class="highlight">ドライサウナ90℃ スーパー銭湯</div></div>
+  <div id="list">
+    <h3>🎧 オーディオ・ジャズ</h3>
+    <div class="spot" onclick="select('tournez')"><div class="name">★ Tournez La Page</div><div class="walk">第一通り駅 1分</div><div class="hl">Avantgarde Acoustic ホーンSP 1000万円クラス</div></div>
+    <div class="spot" onclick="select('analog')"><div class="name">JAZZ SPOT analog.</div><div class="walk">第一通り駅 4分</div><div class="hl">JBL+McIntosh レコードジャズバー</div></div>
+    <div class="spot" onclick="select('jazz-bb')"><div class="name">Jazz In B♭</div><div class="walk">浜松駅 20分（自転車推奨）</div><div class="hl">老舗ジャズ喫茶・ライブハウス</div></div>
+    <div class="spot" onclick="select('hermit')"><div class="name">Hermit Dolphin</div><div class="walk">第一通り駅 2分</div><div class="hl">JBL4344+真空管アンプ 不定期ライブ</div></div>
+    <h3>🎵 ライブ・アート</h3>
+    <div class="spot" onclick="select('takeshi')"><div class="name">たけし文化センター</div><div class="walk">浜松駅 8分</div><div class="hl">アート＆福祉の拠点 音楽スタジオ併設</div></div>
+    <div class="spot" onclick="select('overdub')"><div class="name">overdub</div><div class="walk">浜松駅 10分</div><div class="hl">天神町 音楽バー・ライブスペース</div></div>
+    <div class="spot" onclick="select('planet')"><div class="name">Planet Cafe</div><div class="walk">第一通り駅 7分</div><div class="hl">1995年創業 浜松のクラブ</div></div>
+    <div class="spot" onclick="select('naru')"><div class="name">手打ち蕎麦 naru</div><div class="walk">第一通り駅 1分</div><div class="hl">自家製粉 手打ち蕎麦・ライブ開催</div></div>
+    <h3>♨️ サウナ</h3>
+    <div class="spot" onclick="select('solani')"><div class="name">かじまちの湯 SPA SOLANI</div><div class="walk">浜松駅 5分</div><div class="hl">駅前サウナ 100℃ 水風呂16℃ カプセル併設</div></div>
+    <div class="spot" onclick="select('shiori')"><div class="name">湯風景しおり</div><div class="walk">浜松駅 バス15分+徒歩5分</div><div class="hl">百坪野天風呂 漢方薬草サウナ</div></div>
+    <div class="spot" onclick="select('waigo')"><div class="name">和合の湯</div><div class="walk">浜松駅 バス15分</div><div class="hl">ドライサウナ90℃ スーパー銭湯</div></div>
+  </div>
+  <div id="detail"></div>
 </div>
 
 <div id="map"></div>
@@ -68,6 +83,86 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#1a1a2e;color
 </div>
 
 <script>
+const DATA = {
+  tournez: {
+    name:'★ Tournez La Page（トゥルネラパージュ）',lat:34.7072,lng:137.7335,
+    addr:'浜松市中区板屋町102-14',walk:'第一通り駅 徒歩1分',
+    cat:'おすすめ',color:'#e94560',
+    desc:'浜松を代表するオーディオショップ。Avantgarde Acoustic のホーンスピーカー（1000万円クラス）で聴くジャズは別世界。店主の品味あふれるレコード selec と、たまに開かれるライブイベントも必見。',
+    hours:'11:00-19:00（水曜定休）',url:''
+  },
+  analog: {
+    name:'JAZZ SPOT analog.',lat:34.7077,lng:137.7316,
+    addr:'浜松市中区田町325-1',walk:'第一通り駅 徒歩4分',
+    cat:'ジャズバー',color:'#ff9800',
+    desc:'JBLスピーカーとMcIntoshアンプで聴くレコードジャズ。店主こだわりの音響環境と、静かな夜のバーフィーリング。ジャズファンの聖地。',
+    hours:'18:00-24:00',url:''
+  },
+  'jazz-bb': {
+    name:'Jazz In B♭',lat:34.7250,lng:137.7200,
+    addr:'浜松市東区半田山5-16-17',walk:'浜松駅 徒歩20分（自転車推奨）',
+    cat:'ジャズバー',color:'#ff9800',
+    desc:'浜松の老舗ジャズ喫茶兼ライブハウス。数十年にわたり地元ジャズコミュニティの心臓部。週末のライブは熱気あり。',
+    hours:'13:00-22:00（月曜定休）',url:''
+  },
+  hermit: {
+    name:'Hermit Dolphin',lat:34.7077,lng:137.7316,
+    addr:'浜松市中区田町326-25',walk:'第一通り駅 徒歩2分',
+    cat:'ジャズバー',color:'#ff9800',
+    desc:'JBL4344スピーカーと真空管アンプで鳴る音が魅力。不定期ライブもあり。こぢんまりとした空間で本格的なサウンドを堪能できる隠れ家。',
+    hours:'17:00-23:00',url:''
+  },
+  takeshi: {
+    name:'たけし文化センター連尺町',lat:34.7105,lng:137.7340,
+    addr:'浜松市中区連尺町314-30',walk:'浜松駅 徒歩8分',
+    cat:'ライブ・アート',color:'#4caf50',
+    desc:'アート＆福祉の拠点。音楽スタジオ併設で、地域のアーティストが練習や演奏を行う。オープンな雰囲気でライブやイベントも開催。',
+    hours:'9:00-21:00',url:''
+  },
+  overdub: {
+    name:'overdub',lat:34.7120,lng:137.7300,
+    addr:'浜松市中区天神町',walk:'浜松駅 徒歩10分',
+    cat:'ライブ・アート',color:'#4caf50',
+    desc:'天神町の音楽バー・ライブスペース。地元バンドのギグやDJナイトが開催される、浜松の音楽シーンを支える重要的スポット。',
+    hours:'19:00-24:00',url:''
+  },
+  planet: {
+    name:'Planet Cafe',lat:34.7110,lng:137.7290,
+    addr:'浜松市中区元城町223-1',walk:'第一通り駅 徒歩7分',
+    cat:'ライブ・アート',color:'#4caf50',
+    desc:'1995年創業の浜松を代表するクラブ。ジャズ、ロック、電子音楽など幅広いジャンルのライブが行われる、サブカルチャーの聖地。',
+    hours:'不定期',url:''
+  },
+  naru: {
+    name:'手打ち蕎麦 naru',lat:34.7071,lng:137.7335,
+    addr:'浜松市中区板屋町102-12 2F',walk:'第一通り駅 徒歩1分',
+    cat:'蕎麦',color:'#9c27b0',
+    desc:'自家製粉の手打ち蕎麦。蕎麦の香りとコシが絶品。時折ライブも開催され、音楽と食の融合を楽しめる。',
+    hours:'11:30-14:00 / 17:30-21:00',url:''
+  },
+  solani: {
+    name:'かじまちの湯 SPA SOLANI',lat:34.7065,lng:137.7320,
+    addr:'浜松市中区鍛冶町100-1 ザザシティ浜松中央館3F',walk:'浜松駅 徒歩5分',
+    cat:'サウナ',color:'#00bcd4',
+    desc:'駅前ビル3Fのサウナ。サウナ100℃、水風呂16℃の極端な温度差が魅力。カプセルも併設で、駅近で手軽にサウナを楽しめる。',
+    hours:'10:00-25:00',temp:'サウナ100℃ / 水風呂16℃',url:''
+  },
+  shiori: {
+    name:'湯風景しおり',lat:34.7140,lng:137.7420,
+    addr:'浜松市中区高林1-13-13',walk:'浜松駅 バス15分+徒歩5分',
+    cat:'サウナ',color:'#00bcd4',
+    desc:'百坪の野天風呂を備える銭湯。漢方薬草サウナ、高温サウナ、塩サウナなど豊富な浴槽。地元密着の温かみある銭湯。',
+    hours:'9:00-23:00（火曜定休）',temp:'高温サウナ・塩サウナ・漢方薬草サウナ',url:''
+  },
+  waigo: {
+    name:'和合の湯',lat:34.7050,lng:137.7200,
+    addr:'浜松市中区和合町1146',walk:'浜松駅 バス15分',
+    cat:'サウナ',color:'#00bcd4',
+    desc:'ドライサウナ90℃のスーパー銭湯。広い浴場とリラックスできる空間。地元ファミリーに愛される銭湯。',
+    hours:'9:00-23:00',temp:'サウナ約90℃',url:''
+  }
+};
+
 const map = L.map('map',{zoomControl:false}).setView([34.7090,137.7315],15);
 L.control.zoom({position:'bottomleft'}).addTo(map);
 
@@ -86,11 +181,39 @@ function icon(color,size=28){
   });
 }
 
-function flyTo(lat,lng,hash){if(hash)location.hash=hash;map.flyTo([lat,lng],17,{duration:.8})}
+function select(hash){
+  const s = DATA[hash];
+  if(!s) return;
+  location.hash = hash;
+  map.flyTo([s.lat,s.lng],17,{duration:.8});
+  showDetail(hash);
+}
 
-function popupHtml(name,addr,walk,highlight,temp){
-  let t=temp?`<div style="margin-top:4px;font-size:.7rem;color:#00bcd4">${temp}</div>`:'';
-  return `<div style="min-width:180px"><b style="font-size:.9rem">${name}</b><div style="font-size:.7rem;color:#aaa;margin:4px 0">${addr}</div><div style="font-size:.75rem;color:#ff9800">🚶 ${walk}</div><div style="font-size:.75rem;color:#ccc;margin-top:4px">${highlight}</div>${t}</div>`;
+function showDetail(hash){
+  const s = DATA[hash];
+  if(!s) return;
+  const tags = [
+    `<span class="d-tag" style="background:${s.color}33;color:${s.color};border:1px solid ${s.color}">${s.cat}</span>`
+  ];
+  if(s.temp) tags.push(`<span class="d-tag" style="background:#00bcd433;color:#00bcd4;border:1px solid #00bcd4">${s.temp}</span>`);
+  const detail = document.getElementById('detail');
+  detail.innerHTML = `
+    <div class="back" onclick="backToList()">← 一覧に戻る</div>
+    <div class="d-name">${s.name}</div>
+    <div class="d-addr">${s.addr}</div>
+    <div>${tags.join('')}</div>
+    <div class="d-walk">🚶 ${s.walk}</div>
+    <div class="d-desc">${s.desc}</div>
+    <div class="d-hours">🕐 ${s.hours}</div>
+    ${s.url ? `<a class="d-link" href="${s.url}" target="_blank">Google Maps で見る →</a>` : ''}
+  `;
+  document.getElementById('list').style.display = 'none';
+  detail.style.display = 'block';
+}
+
+function backToList(){
+  document.getElementById('detail').style.display = 'none';
+  document.getElementById('list').style.display = 'block';
 }
 
 // Stations
@@ -103,72 +226,24 @@ function popupHtml(name,addr,walk,highlight,temp){
    .bindPopup(`<b>🚉 ${s.name}</b>`);
 });
 
-// Main spot
-L.marker([34.7072,137.7335],{icon:icon('#e94560',34)}).addTo(map)
- .bindPopup(popupHtml('★ Tournez La Page（トゥルネラパージュ）','板屋町102-14','第一通り駅 徒歩1分','Avantgarde Acoustic ホーンSP 1000万円クラス'));
-
-// Others - Jazz bars
-[
-  {name:'JAZZ SPOT analog.',lat:34.7077,lng:137.7316,addr:'田町325-1',walk:'第一通り駅 4分',hl:'JBL+McIntosh レコードジャズバー'},
-  {name:'Jazz In B♭',lat:34.7250,lng:137.7200,addr:'半田山5-16-17',walk:'浜松駅 20分',hl:'老舗ジャズ喫茶・ライブハウス'},
-  {name:'Hermit Dolphin',lat:34.7077,lng:137.7316,addr:'田町326-25',walk:'第一通り駅 2分',hl:'JBL4344+真空管アンプ 不定期ライブ'}
-].forEach(s=>{
-  L.marker([s.lat,s.lng],{icon:icon('#ff9800')}).addTo(map)
-   .bindPopup(popupHtml(s.name,s.addr,s.walk,s.hl));
+// Spot markers
+Object.entries(DATA).forEach(([hash,s])=>{
+  const size = hash==='tournez' ? 34 : 28;
+  const marker = L.marker([s.lat,s.lng],{icon:icon(s.color,size)}).addTo(map);
+  marker.bindPopup(`<b>${s.name}</b><div style="font-size:.7rem;color:#aaa;margin:4px 0">${s.addr}</div><div style="font-size:.75rem;color:#ff9800">🚶 ${s.walk}</div><div style="font-size:.75rem;color:#ccc;margin-top:4px">${s.desc}</div>`);
+  marker.on('click',()=>showDetail(hash));
 });
 
-// Live & Art
-[
-  {name:'たけし文化センター連尺町',lat:34.7105,lng:137.7340,addr:'連尺町314-30',walk:'浜松駅 8分',hl:'アート＆福祉の拠点 音楽スタジオ併設'},
-  {name:'overdub',lat:34.7120,lng:137.7300,addr:'天神町',walk:'浜松駅 10分',hl:'天神町の音楽バー・ライブスペース'},
-  {name:'Planet Cafe',lat:34.7110,lng:137.7290,addr:'元城町223-1',walk:'第一通り駅 7分',hl:'1995年創業 浜松を代表するクラブ'}
-].forEach(s=>{
-  L.marker([s.lat,s.lng],{icon:icon('#4caf50')}).addTo(map)
-   .bindPopup(popupHtml(s.name,s.addr,s.walk,s.hl));
-});
-
-// Soba
-L.marker([34.7071,137.7335],{icon:icon('#9c27b0')}).addTo(map)
- .bindPopup(popupHtml('手打ち蕎麦 naru','板屋町102-12 2F','第一通り駅 1分','自家製粉の手打ち蕎麦 ライブ開催'));
-
-// Sauna
-[
-  {name:'かじまちの湯 SPA SOLANI',lat:34.7065,lng:137.7320,addr:'鍛冶町100-1 ザザシティ浜松中央館3F',walk:'浜松駅 5分',hl:'駅前サウナ 100℃ 水風呂16℃',temp:'サウナ100℃ / 水風呂16℃'},
-  {name:'湯風景しおり',lat:34.7140,lng:137.7420,addr:'高林1-13-13',walk:'浜松駅 バス15分+徒歩5分',hl:'百坪野天風呂 漢方薬草サウナ',temp:'高温サウナ・塩サウナ・漢方薬草サウナ'},
-  {name:'和合の湯',lat:34.7050,lng:137.7200,addr:'和合町1146',walk:'浜松駅 バス15分',hl:'ドライサウナ90℃ スーパー銭湯',temp:'サウナ約90℃'}
-].forEach(s=>{
-  L.marker([s.lat,s.lng],{icon:icon('#00bcd4')}).addTo(map)
-   .bindPopup(popupHtml(s.name,s.addr,s.walk,s.hl,s.temp));
-});
-
-// Hash routing — fly to spot on load
-const spots = {
-  tournez: [34.7072,137.7335],
-  analog: [34.7077,137.7316],
-  'jazz-bb': [34.7250,137.7200],
-  hermit: [34.7077,137.7316],
-  takeshi: [34.7105,137.7340],
-  overdub: [34.7120,137.7300],
-  planet: [34.7110,137.7290],
-  naru: [34.7071,137.7335],
-  solani: [34.7065,137.7320],
-  shiori: [34.7140,137.7420],
-  waigo: [34.7050,137.7200]
-};
+// Hash routing
+const hashToCoord = {};
+Object.entries(DATA).forEach(([k,v])=>hashToCoord[k]=[v.lat,v.lng]);
 
 function handleHash(){
   const h = location.hash.replace('#','');
-  if(h && spots[h]){
-    const [lat,lng] = spots[h];
-    map.flyTo([lat,lng],17,{duration:.8});
-    map.eachLayer(l=>{if(l.getLatLng){
-      const ll=l.getLatLng();
-      if(Math.abs(ll.lat-lat)<.0005 && Math.abs(ll.lng-lng)<.0005) l.openPopup();
-    }});
-  }
+  if(h && DATA[h]) select(h);
 }
 window.addEventListener('hashchange',handleHash);
-handleHash();
+if(location.hash) handleHash();
 
 // Walking time circles from 浜松駅
 const center = [34.7035,137.7295];
